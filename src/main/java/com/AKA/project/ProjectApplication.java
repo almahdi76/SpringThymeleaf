@@ -24,6 +24,12 @@ public class ProjectApplication {
 		produitRepository.save(new Produit("OPPO A50",660,17));
 		produitRepository.save(new Produit("Nokia GX",800,14));
 		produitRepository.save(new Produit("Xiaom S10",220,99));
+		
+		produitRepository.save(new Produit("LG 15",444,60));
+		produitRepository.save(new Produit("LG xtx",328,47));
+		produitRepository.save(new Produit("Weeky A50",808,17));
+		produitRepository.save(new Produit("Phon 10",800,14));
+		produitRepository.save(new Produit("Plackpery",1000,99));
 		produitRepository.findAll().forEach(p -> System.out.println(p.getDesignation()));
 		
 		
