@@ -17,8 +17,8 @@ crossorigin="anonymous">
 <div class='container'>
 	<form th:action="@{index}" method="get">
 		<label>Mot clé</label>
-		<input  type="text" name="mc"/>
-		<button type="submit" class="btn btn-primary"> Chercher</button>
+		<input  type="text" name="mc" th:value="${mc}" />
+		<button  class="btn btn-primary"> Chercher</button>
 	</form>
 </div>
 <div class="container">
@@ -35,6 +35,8 @@ crossorigin="anonymous">
 				<td th:text="${p.designation}"></td>
 				<td th:text="${p.prix}"></td>
 				<td th:text="${p.quantites}"></td>
+				<td> <a th:href="@{delete(id=${p.id},page=${pageCourant},size=${size},mc=${mc})}">Delete</a> </td>
+				
 			</tr>
 		</tbody>
 	</table>
@@ -46,9 +48,17 @@ crossorigin="anonymous">
 		</li>
 	</ul>
  -->
+  <!--
 	<ul class="pagination">
 		<li th:class="${pageCourant}==${status.count}?'page-item active':'page-item'" th:each="p,status:${pages} " >
-			<a  th:href= "@{index(page=${status.count},size=${size})}" class="page-link" th:text="${status.count}"></a>
+			<a  th:href= "@{index(page=${status.count},size=${size},mc=${mc})}" class="page-link" th:text="${status.count}"></a>
+			
+		</li>
+	</ul>
+	  -->
+	 	<ul class="pagination">
+		<li th:class="${pageCourant}==${status.index}?'page-item active':'page-item'" th:each="p,status:${pages} " >
+			<a  th:href= "@{index(page=${status.index},size=${size},mc=${mc})}" class="page-link" th:text="${status.index}"></a>
 			
 		</li>
 	</ul> 

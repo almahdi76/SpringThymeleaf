@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.AKA.project.dao.ProduitRepository;
@@ -31,15 +32,35 @@ public class ProduitController {
 //		return "produits";
 //	}
 	
+//	@RequestMapping(value="/index")
+//	public String index(Model model,@RequestParam(name="page", defaultValue="0") int p,@RequestParam(name="size",defaultValue="3") int s) {
+//		Pageable pageable = PageRequest.of(p, s);
+//        Page<Produit> pageProducts = produitRepository.findAll(pageable);
+//		model.addAttribute("listProduit",pageProducts);
+//		int pages[]=new int[pageProducts.getTotalPages()];
+//		model.addAttribute("pages", pages);
+//		model.addAttribute("size", s);
+//		model.addAttribute("pageCourant", p);
+//		return "produits";
+//	}
+	
 	@RequestMapping(value="/index")
-	public String index(Model model,@RequestParam(name="page", defaultValue="0") int p,@RequestParam(name="size",defaultValue="3") int s) {
+	public String index(Model model,@RequestParam(name="page", defaultValue="0") int p,@RequestParam(name="size",defaultValue="3") int s,
+			@RequestParam(name="mc",defaultValue="") String mc) {
 		Pageable pageable = PageRequest.of(p, s);
-        Page<Produit> pageProducts = produitRepository.findAll(pageable);
+        Page<Produit> pageProducts = produitRepository.chercher("%"+mc+"%",pageable);
 		model.addAttribute("listProduit",pageProducts);
 		int pages[]=new int[pageProducts.getTotalPages()];
 		model.addAttribute("pages", pages);
 		model.addAttribute("size", s);
 		model.addAttribute("pageCourant", p);
+		model.addAttribute("mc", mc);
+		//System.out.println("mc.."+mc);
 		return "produits";
+	}
+	@RequestMapping(value="/delete",method=RequestMethod.GET)
+	public String delete(Long id,String mc,int page,int size) {
+		produitRepository.deleteById(id);
+		return "redirect:/index?page="+page+"&size="+size+"&mc="+mc;
 	}
 }
