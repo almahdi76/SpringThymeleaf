@@ -38,6 +38,8 @@ public class ProduitController {
 		model.addAttribute("listProduit",pageProducts);
 		int pages[]=new int[pageProducts.getTotalPages()];
 		model.addAttribute("pages", pages);
+		model.addAttribute("size", s);
+		model.addAttribute("pageCourant", p);
 		return "produits";
 	}
 }
