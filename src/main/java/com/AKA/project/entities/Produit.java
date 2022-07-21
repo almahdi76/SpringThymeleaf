@@ -5,6 +5,10 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Size;
+
+import org.springframework.lang.NonNull;
 
 @Entity
 public class Produit implements Serializable{
@@ -12,7 +16,10 @@ public class Produit implements Serializable{
 	@Id
 	@GeneratedValue
 	private Long id;
+	@NonNull
+	@Size(min=4,max=25)
 	private String designation;
+	@DecimalMin("50")
 	private double prix;
 	private int quantites;
 	public Produit() {
